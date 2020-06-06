@@ -1,18 +1,23 @@
 package com.ion.blogapi.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@ToString
 @NoArgsConstructor
-@AllArgsConstructor
 public class Board {
+	private static Long idCnt;
 	private Long id;
 	private String writer;
 	private String content;
 
-	public Board(String writer, String content) {
+	static {
+		idCnt = 0L;
+	}
+
+	@Builder
+	public Board(String writer,String content) {
+		this.id = ++idCnt;
 		this.writer = writer;
 		this.content = content;
 	}

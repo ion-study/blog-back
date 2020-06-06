@@ -11,8 +11,8 @@ public class BoardRepositoryImpl implements BoardRepository {
 	private List<Board> boards = new ArrayList<>();
 
 	public BoardRepositoryImpl() {
-		boards.add(new Board(1L, "유진", "테스트내용입니다!!"));
-		boards.add(new Board(2L, "승세", "테스트내용입니다!!22"));
+		boards.add(Board.builder().writer("유진").content("유진 테스트").build());
+		boards.add(Board.builder().writer("승세").content("승세 테스트").build());
 	}
 
 	@Override
@@ -31,7 +31,6 @@ public class BoardRepositoryImpl implements BoardRepository {
 
 	@Override
 	public Board save(Board board) {
-		board.setId(Long.valueOf(boards.size()+1));
 		boards.add(board);
 		return board;
 	}

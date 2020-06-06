@@ -26,15 +26,12 @@ public class BoardController {
 
 	@PostMapping("/boards")
 	public ResponseEntity<?> create(@RequestBody Board resource) throws URISyntaxException {
-		String writer = resource.getWriter();
-		String content = resource.getContent();
 
-		Board board = new Board(writer, content);
-		board.setId(3L);
+		Board board = Board.builder().writer(resource.getWriter()).content(resource.getContent()).build();
 		boardService.addBoard(board);
 
 		URI location = new URI("/boards/" + board.getId());
-		return ResponseEntity.created(location).body("{}");
+		return ResponseEntity.created(location).body(board.toString());
 	}
 
 }
