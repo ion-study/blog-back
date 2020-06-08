@@ -1,9 +1,12 @@
 package com.ion.blogapi.domain;
 
-import java.util.List;
+import org.springframework.data.repository.CrudRepository;
 
-public interface BoardRepository {
+import java.util.List;
+import java.util.Optional;
+
+public interface BoardRepository extends CrudRepository<Board, Long> {
 	List<Board> findAll();
-	Board findById(Long id);
+	Optional<Board> findById(Long id);
 	Board save(Board board);
 }

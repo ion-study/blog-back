@@ -2,23 +2,19 @@ package com.ion.blogapi.domain;
 
 import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 @Getter
 @ToString
-@NoArgsConstructor
 public class Board {
-	private static Long idCnt;
+
+	@Id
+	@GeneratedValue
 	private Long id;
 	private String writer;
 	private String content;
 
-	static {
-		idCnt = 0L;
-	}
-
-	@Builder
-	public Board(String writer,String content) {
-		this.id = ++idCnt;
-		this.writer = writer;
-		this.content = content;
-	}
 }
