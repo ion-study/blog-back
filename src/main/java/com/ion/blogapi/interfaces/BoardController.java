@@ -1,11 +1,10 @@
 package com.ion.blogapi.interfaces;
 
-import com.ion.blogapi.application.BoardService;
+import com.ion.blogapi.service.BoardService;
 import com.ion.blogapi.domain.Board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController

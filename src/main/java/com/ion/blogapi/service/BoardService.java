@@ -1,4 +1,4 @@
-package com.ion.blogapi.application;
+package com.ion.blogapi.service;
 
 import com.ion.blogapi.domain.Board;
 import com.ion.blogapi.domain.BoardRepository;
