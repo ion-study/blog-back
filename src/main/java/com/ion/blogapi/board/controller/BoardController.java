@@ -1,7 +1,7 @@
-package com.ion.blogapi.controller;
+package com.ion.blogapi.board.controller;
 
-import com.ion.blogapi.service.BoardService;
-import com.ion.blogapi.domain.Board;
+import com.ion.blogapi.board.service.BoardService;
+import com.ion.blogapi.board.domain.Board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

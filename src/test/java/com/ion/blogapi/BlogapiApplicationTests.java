@@ -1,6 +1,6 @@
 package com.ion.blogapi;
 
-import com.ion.blogapi.controller.BoardController;
+import com.ion.blogapi.board.controller.BoardController;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

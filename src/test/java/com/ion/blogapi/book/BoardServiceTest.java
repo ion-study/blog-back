@@ -1,7 +1,7 @@
 package com.ion.blogapi.book;
 
-import com.ion.blogapi.domain.Board;
-import com.ion.blogapi.service.BoardService;
+import com.ion.blogapi.board.domain.Board;
+import com.ion.blogapi.board.service.BoardService;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

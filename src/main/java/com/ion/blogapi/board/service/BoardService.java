@@ -1,7 +1,7 @@
-package com.ion.blogapi.service;
+package com.ion.blogapi.board.service;
 
-import com.ion.blogapi.domain.Board;
-import com.ion.blogapi.domain.BoardRepository;
+import com.ion.blogapi.board.domain.Board;
+import com.ion.blogapi.board.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
