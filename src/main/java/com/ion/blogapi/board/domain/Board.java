@@ -2,6 +2,7 @@ package com.ion.blogapi.board.domain;
 
 import com.ion.blogapi.common.domain.CommonField;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 @Setter
 @ToString
 @NoArgsConstructor
+@DynamicUpdate
 public class Board extends CommonField {
 
 	@Id
