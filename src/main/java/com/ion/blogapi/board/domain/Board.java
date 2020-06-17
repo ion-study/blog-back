@@ -23,7 +23,6 @@ public class Board extends CommonField {
 
 	@Column(nullable = false, updatable = false)
 	private String userId;
-	private String userName;
 	private String subject;
 
 	@Column(columnDefinition = "TEXT")
