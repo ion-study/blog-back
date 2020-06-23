@@ -19,10 +19,13 @@ public class Board extends CommonField {
 
 	@Id
 	@GeneratedValue
-	private Long id;
+	private Long boardId;
+
+	private Long catId;
 
 	@Column(nullable = false, updatable = false)
 	private String userId;
+
 	private String subject;
 
 	@Column(columnDefinition = "TEXT")
