@@ -1,5 +1,8 @@
 package com.ion.blogapi.category.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.ion.blogapi.common.domain.CommonField;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,6 +10,7 @@ import lombok.ToString;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -14,7 +18,7 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @DynamicUpdate
-public class Category {
+public class Category extends CommonField {
 
 	@Id
 	@GeneratedValue
@@ -23,12 +27,17 @@ public class Category {
 	@Column(nullable = false)
 	private String catName;
 
-	private Long parentCatId;
 	private int orderNum;
+	private int depth;
 
 	@Column(nullable = false)
 	private Long blogId;
 
-	@Transient
-	private boolean removed;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "parentCatId", referencedColumnName = "catId")
+	private Category parentCatId;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parentCatId", cascade = CascadeType.ALL)
+	private List<Category> children;
+
 }

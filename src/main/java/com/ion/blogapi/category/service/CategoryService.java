@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -30,8 +31,20 @@ public class CategoryService {
 		categoryRepository.deleteById(id);
 	}
 
+	/*
 	@Transactional
 	public void settingCategory(Long id, List<Category> list) {
+		list.stream().forEach(category -> {
+			//process
+		});
+		List<Category>  listCate = list.stream().map(category -> {
+			//data 가공
+			category.setBlogId(1l);
+			return category;
+		}).collect(Collectors.toList());
+
+
+
 		for(Category category : list) {
 			category.setBlogId(id);
 			if(category.isRemoved()) { // 카테고리 삭제
@@ -42,4 +55,5 @@ public class CategoryService {
 		}
 
 	}
+	*/
 }
