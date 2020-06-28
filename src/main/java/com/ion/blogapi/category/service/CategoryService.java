@@ -5,9 +5,7 @@ import com.ion.blogapi.category.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -18,16 +16,24 @@ public class CategoryService {
 		return categoryRepository.findByBlogId(blogId);
 	}
 
+	public List<Category> getCategories(Long blogId, Long parentCatId) {
+		return categoryRepository.findByBlogIdAndParentCatId(blogId, parentCatId);
+	}
+
 	public Category getCategory(Long id) {
 		return categoryRepository.findById(id).orElse(null);
 	}
 
-	public Category addCategory(Category category) {
+	public Category setCategory(Category category) {
 		return categoryRepository.save(category);
 	}
 
-	@Transactional
-	public void deleteCategory(Long id) {
+	public void deleteCategory(Long blogId, Long id) {
+		// 자식 삭제
+		List<Category> children = getCategories(blogId, id);
+		System.out.println(children);
+		categoryRepository.deleteAll(children);
+		// 부모 삭제
 		categoryRepository.deleteById(id);
 	}
 

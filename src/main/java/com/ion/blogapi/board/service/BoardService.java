@@ -32,7 +32,6 @@ public class BoardService {
 		return board;
 	}
 
-	@Transactional
 	public void deleteBoard(Long id) {
 		boardRepository.deleteById(id);
 	}
