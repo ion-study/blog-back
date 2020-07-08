@@ -1,13 +1,11 @@
 package com.ion.blogapi.board.domain;
 
+import com.ion.blogapi.category.domain.Category;
 import com.ion.blogapi.common.domain.CommonField;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -21,7 +19,9 @@ public class Board extends CommonField {
 	@GeneratedValue
 	private Long boardId;
 
-	private Long catId;
+	@ManyToOne
+	@JoinColumn(name = "catId")
+	private Category category;
 
 	@Column(nullable = false, updatable = false)
 	private String userId;
@@ -30,10 +30,5 @@ public class Board extends CommonField {
 
 	@Column(columnDefinition = "TEXT")
 	private String contents;
-
-	public void updateInformation(String subject, String contents) {
-		this.subject = subject;
-		this.contents = contents;
-	}
 
 }
