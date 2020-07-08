@@ -26,10 +26,14 @@ public class BoardService {
 	}
 
 	@Transactional
-	public Board updateBoard(Long id, String subject, String contents) {
-		Board board = boardRepository.findById(id).orElse(null);
-		board.updateInformation(subject, contents);
-		return board;
+	public Board updateBoard(Board board){
+		// board 존재하는지 판단
+		board = getBoard(board.getBoardId());
+		if(board == null) {
+			System.out.println("Board 가 존재하지 않습니다. (board id:" + board.getBoardId() + ")");
+			return null;
+		}
+		return boardRepository.save(board);
 	}
 
 	public void deleteBoard(Long id) {

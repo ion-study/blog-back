@@ -30,11 +30,9 @@ public class BoardController {
 		return boardService.addBoard(resource);
 	}
 
-	@PatchMapping("/boards/{id}")
-	public Board update(@PathVariable("id") Long id, @RequestBody Board resource) {
-		String subject = resource.getSubject();
-		String contents = resource.getContents();
-		return boardService.updateBoard(id, subject, contents);
+	@PatchMapping("/boards")
+	public Board update(@RequestBody Board resource) {
+		return boardService.updateBoard(resource);
 	}
 
 	@DeleteMapping("/boards/{id}")
