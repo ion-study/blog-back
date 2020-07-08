@@ -1,6 +1,7 @@
 package com.ion.blogapi.category.controller;
 
 import com.ion.blogapi.category.domain.Category;
+import com.ion.blogapi.category.dto.CategoryDto;
 import com.ion.blogapi.category.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +46,12 @@ public class CategoryController {
 		return statusMap;
 	}
 
+	// test
+	@PostMapping("/categories")
+	public String createTest(@RequestBody CategoryDto.CreateReq categoryDto) {
+		// cateogyDto 들어오는 값 테스트
+		return "test";
+	}
 
 
 }
