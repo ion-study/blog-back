@@ -47,11 +47,11 @@ public class CategoryController {
 	}
 
 	// test
-	@PostMapping("/categories")
-	public String createTest(@RequestBody CategoryDto.CreateReq categoryDto) {
-		// cateogyDto 들어오는 값 테스트
-		return "test";
-	}
+//	@PostMapping("/categories")
+//	public String createTest(@RequestBody CategoryDto.CreateReq categoryDto) {
+//		// cateogyDto 들어오는 값 테스트
+//		return "test";
+//	}
 
 
 }

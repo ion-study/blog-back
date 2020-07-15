@@ -1,7 +1,9 @@
 package com.ion.blogapi.board.controller;
 
-import com.ion.blogapi.board.service.BoardService;
 import com.ion.blogapi.board.domain.Board;
+import com.ion.blogapi.board.dto.BoardReqDto;
+import com.ion.blogapi.board.service.BoardService;
+import com.ion.blogapi.common.dto.ResDtoCommon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +27,7 @@ public class BoardController {
 	}
 
 	@PostMapping("/boards")
-	public Board create(@RequestBody Board resource) {
-		//Board board = Board.builder().writer(resource.getWriter()).content(resource.getContent()).build();
+	public ResDtoCommon create(@RequestBody BoardReqDto resource) {
 		return boardService.addBoard(resource);
 	}
 
