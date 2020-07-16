@@ -1,13 +1,13 @@
 package com.ion.blogapi.common.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResDtoCommon {
+@Builder
+public class CommonResDto {
 	private int returnCode;
 	private String returnMessage;
 }
