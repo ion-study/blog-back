@@ -41,7 +41,7 @@ public class BoardController {
 	}
 
 	@DeleteMapping("/boards/{id}")
-	public @ResponseBody CommonResDto delete(@PathVariable("id") Long id) {
+	public CommonResDto delete(@PathVariable("id") Long id) {
 		return boardService.deleteBoard(id);
 	}
 }
