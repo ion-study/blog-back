@@ -18,8 +18,9 @@ public class BoardController {
 	private BoardService boardService;
 
 	@GetMapping("/boards")
-	public List<BoardResDto> list() {
-		return boardService.getBoards();
+	public List<BoardResDto> list(@RequestParam(required = false, value = "catId") Long catId) {
+		if(catId == null) return boardService.getBoards();
+		return boardService.getBoardsByCatId(catId);
 	}
 
 	@GetMapping("/boards/{id}")

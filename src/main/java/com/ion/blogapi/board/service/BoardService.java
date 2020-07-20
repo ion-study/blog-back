@@ -29,6 +29,15 @@ public class BoardService {
 		return boardResDtoList;
 	}
 
+	public List<BoardResDto> getBoardsByCatId(Long catId) {
+		List<Board> boards = boardRepository.findByCatId(catId);
+
+		// Entity to Dto
+		List<BoardResDto> boardResDtoList = BoardResDto.of(boards);
+
+		return boardResDtoList;
+	}
+
 	public BoardResDto getBoard(Long id) {
 		Board board = boardRepository.findById(id).orElse(null);
 
