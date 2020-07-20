@@ -10,4 +10,13 @@ import lombok.*;
 public class CommonResDto {
 	private int returnCode;
 	private String returnMessage;
+
+	public static CommonResDto setSuccess() {
+		return CommonResDto.builder().returnCode(200).returnMessage("success").build();
+	}
+
+	public static CommonResDto setNotFound() {
+		return CommonResDto.builder().returnCode(404).returnMessage("카테고리를 찾을 수 없습니다.").build();
+	}
+
 }

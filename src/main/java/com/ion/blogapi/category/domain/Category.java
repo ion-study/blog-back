@@ -1,6 +1,9 @@
 package com.ion.blogapi.category.domain;
 
+import com.ion.blogapi.board.dto.BoardResDto;
+import com.ion.blogapi.category.dto.CategoryResDto;
 import com.ion.blogapi.common.domain.CommonField;
+import com.ion.blogapi.config.ModelMapperUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +14,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter

@@ -1,7 +1,10 @@
 package com.ion.blogapi.category.service;
 
+import com.ion.blogapi.board.dto.BoardResDto;
 import com.ion.blogapi.category.domain.Category;
+import com.ion.blogapi.category.dto.CategoryResDto;
 import com.ion.blogapi.category.repository.CategoryRepository;
+import com.ion.blogapi.common.dto.CommonResDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,28 +16,51 @@ public class CategoryService {
 	CategoryRepository categoryRepository;
 
 	public List<Category> getCategories(Long blogId) {
-		return categoryRepository.findByBlogId(blogId);
+		List<Category> categories = categoryRepository.findByBlogId(blogId);
+
+		return categories;
 	}
 
 	public List<Category> getCategories(Long blogId, Long parentCatId) {
-		return categoryRepository.findByBlogIdAndParentCatId(blogId, parentCatId);
+		List<Category> categories = categoryRepository.findByBlogIdAndParentCatId(blogId, parentCatId);
+
+		return categories;
 	}
 
-	public Category getCategory(Long id) {
-		return categoryRepository.findById(id).orElse(null);
+	public CategoryResDto getCategory(Long id) {
+
+		Category category = categoryRepository.findById(id).orElse(null);
+		CategoryResDto res = new CategoryResDto();
+
+		if(category == null) {
+			res.setResLog(CommonResDto.setNotFound());
+		}else {
+			res = CategoryResDto.of(category);
+		}
+
+		return res;
 	}
 
-	public Category setCategory(Category category) {
-		return categoryRepository.save(category);
+	public CategoryResDto setCategory(Category category) {
+		Category newCategory = categoryRepository.save(category);
+		// 확인로직
+		// ...
+
+		return CategoryResDto.of(newCategory);
 	}
 
-	public void deleteCategory(Long blogId, Long id) {
+	public CommonResDto deleteCategory(Long blogId, Long id) {
 		// 자식 삭제
-		List<Category> children = getCategories(blogId, id);
-		System.out.println(children);
-		categoryRepository.deleteAll(children);
+		List<Category> categories = getCategories(blogId, id);
+
+		System.out.println(categories);
+		categoryRepository.deleteAll(categories);
 		// 부모 삭제
 		categoryRepository.deleteById(id);
+
+		// 확인 로직
+		// ...
+		return CommonResDto.setSuccess();
 	}
 
 	/*
