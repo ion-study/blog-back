@@ -1,6 +1,5 @@
 package com.ion.blogapi.board.controller;
 
-import com.ion.blogapi.board.domain.Board;
 import com.ion.blogapi.board.dto.BoardReqDto;
 import com.ion.blogapi.board.dto.BoardResDto;
 import com.ion.blogapi.board.service.BoardService;
@@ -8,7 +7,6 @@ import com.ion.blogapi.common.dto.CommonResDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 
 @RestController

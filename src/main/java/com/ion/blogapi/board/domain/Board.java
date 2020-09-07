@@ -14,7 +14,9 @@ import javax.persistence.*;
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 @DynamicUpdate
+@Builder
 public class Board extends CommonField {
 
 	@Id
@@ -38,8 +40,7 @@ public class Board extends CommonField {
 		Board board = ModelMapperUtils.getModelMapper().map(boardReqDto, Board.class);
 
 		// 이름이 다른 필드는 직접 set을 통해 매핑
-		Category category = new Category();
-		category.setCatId(boardReqDto.getCatId());
+		Category category = Category.builder().catId(boardReqDto.getCatId()).build();
 		board.setCategory(category);
 
 		//test

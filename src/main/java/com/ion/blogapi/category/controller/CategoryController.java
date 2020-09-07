@@ -16,8 +16,7 @@ public class CategoryController {
 
 	@GetMapping("/categories")
 	public List<Category> list(@RequestParam("blogId") Long blogId, @RequestParam(required = false, value = "parentCatId") Long parentCatId) {
-		if(parentCatId == null) return categoryService.getCategories(blogId);
-		else return categoryService.getCategories(blogId, parentCatId);
+		return categoryService.getCategories(blogId, parentCatId);
 	}
 
 	@GetMapping("/categories/{id}")

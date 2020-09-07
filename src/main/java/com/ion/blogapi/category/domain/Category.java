@@ -4,10 +4,7 @@ import com.ion.blogapi.board.dto.BoardResDto;
 import com.ion.blogapi.category.dto.CategoryResDto;
 import com.ion.blogapi.common.domain.CommonField;
 import com.ion.blogapi.config.ModelMapperUtils;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Column;
@@ -22,7 +19,9 @@ import java.util.stream.Collectors;
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 @DynamicUpdate
+@Builder
 public class Category extends CommonField {
 
 	@Id
