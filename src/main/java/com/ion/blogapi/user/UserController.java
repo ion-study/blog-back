@@ -1,10 +1,7 @@
 package com.ion.blogapi.user;
 import com.ion.blogapi.common.dto.CommonResDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,12 +13,18 @@ public class UserController {
 	private UserService userService;
 
 	// 1. User list
-	@GetMapping("/users")
-	public List<User> list() {
+//	@GetMapping("/users")
+//	public List<User> list() {
+//
+//		return null;
+//	}
 
-		return null;
+	@GetMapping("/users")
+	public User detail(@RequestParam("email") String email) {
+		System.out.println(userService.getUser(email));
+		return userService.getUser(email);
 	}
-	// 2. User create -> 회원 가입
+
 	@PostMapping("/users")
 	public CommonResDto create(@RequestBody User resource) {
 		System.out.println("user : ");
@@ -29,7 +32,6 @@ public class UserController {
 		System.out.println(resource.isAdmin());
 
 		return userService.setUser(resource);
-
 	}
 
 	// 3. User update

@@ -2,6 +2,7 @@ package com.ion.blogapi.user;
 
 import com.ion.blogapi.common.domain.CommonField;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicUpdate
 @Builder
 @SequenceGenerator(
 		name = "USER_SEQ_GENERATOR",

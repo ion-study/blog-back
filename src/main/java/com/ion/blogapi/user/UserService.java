@@ -14,4 +14,15 @@ public class UserService {
 		userRepository.save(user);
 		return CommonResDto.setSuccess();
 	}
+
+	public User getUser(String email) {
+		User user = userRepository.findByEmail(email);
+		if(user == null) {
+			// 예외처리
+			System.out.println("[Error] 적절한 사용자가 없습니다.");
+			return null;
+		}else {
+			return userRepository.findByEmail(email);
+		}
+	}
 }
