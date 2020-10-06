@@ -34,8 +34,21 @@ public class UserController {
 		return userService.setUser(resource);
 	}
 
-	// 3. User update
+	@PatchMapping("/users")
+	public CommonResDto update(@RequestBody User resource) {
+		System.out.println("[update] user : ");
+		System.out.println(resource);
+		System.out.println(resource.isAdmin());
+
+		return userService.updateUser(resource);
+	}
+
+
 	// 4. User delete -> level:0 -> 아무것도 못 함.
 	//    (0:권한중지, 1:사용자, 2:블로그 주인, 3:어드민)
+	@DeleteMapping("/users")
+	public CommonResDto delete(@RequestParam("email") String email) {
+		return userService.deleteUser(email);
+	}
 
 }

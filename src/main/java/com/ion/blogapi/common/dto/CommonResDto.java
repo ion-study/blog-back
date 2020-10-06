@@ -16,7 +16,12 @@ public class CommonResDto {
 	}
 
 	public static CommonResDto setNotFound() {
-		return CommonResDto.builder().returnCode(404).returnMessage("카테고리를 찾을 수 없습니다.").build();
+		return CommonResDto.builder().returnCode(404).returnMessage("카테고리 중복.").build();
 	}
+
+	public static CommonResDto setDuplEmail() {
+		return CommonResDto.builder().returnCode(404).returnMessage("중복 이메일 입니다.").build();
+	}
+
 
 }
