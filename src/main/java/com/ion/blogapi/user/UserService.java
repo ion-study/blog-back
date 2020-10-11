@@ -5,23 +5,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.parser.Entity;
+
 @Service
 public class UserService {
 
 	@Autowired
 	UserRepository userRepository;
 
-	public CommonResDto setUser(User user) {
+	/**
+	 * 회원가입
+	 * @param userReqDto
+	 * @return CommonResDto
+	 */
+	public CommonResDto join(UserReqCreateDto userReqDto) {
+
+		// 1. DTO to Entity
+		User user = User.of(userReqDto);
+
 		// email 중복 검사
-		System.out.println("중복검사 시작");
-		System.out.println(userRepository.findByEmail(user.getEmail()));
-		if(userRepository.findByEmail(user.getEmail()) != null) {
-			return CommonResDto.setDuplEmail();
-		}
+		if(!validateDuplicateUser(user)) return CommonResDto.setDuplEmail();
 		userRepository.save(user);
 		return CommonResDto.setSuccess();
 	}
 
+	private boolean validateDuplicateUser(User user) {
+		User findUser = userRepository.findByEmail(user.getEmail());
+		return (findUser == null) ? true : false;
+		//	throw new IllegalStateException("이미 존재하는 회원입니다.");
+	}
+
+	/**
+	 * 단일 회원 조회
+	 * @param email
+	 * @return User
+	 */
 	public User getUser(String email) {
 		User user = userRepository.findByEmail(email);
 		if(user == null) {
@@ -29,28 +47,20 @@ public class UserService {
 			System.out.println("[Error] 적절한 사용자가 없습니다.");
 			return null;
 		}else {
-			return userRepository.findByEmail(email);
+			return user;
 		}
 	}
 
 	@Transactional
 	public CommonResDto updateUser(User user) {
-		User oldUser = userRepository.findByEmail(user.getEmail());
-		System.out.println(oldUser);
+		// 기존 유저 검사
+		if(user.getId() == null) return CommonResDto.setNotFoundUser();
 
-		// user 존재하는지 판단
-		if(oldUser == null) {
-			System.out.println("User 가 존재하지 않습니다.");
-			return null;
-		}
+		User oldUser = userRepository.findById(user.getId()).orElse(null);
+		if(oldUser == null) return CommonResDto.setNotFoundUser();
 
-		// db update
-		oldUser.setName(user.getName());
-		oldUser.setPassword(user.getPassword());
-		userRepository.save(oldUser);
-
-		System.out.println("new user:");
-		System.out.println(oldUser);
+		// 기존 유저 + 수정 항목 업데이트
+		userRepository.save(user);
 
 		// Entity To Dto
 		return CommonResDto.builder().returnCode(200).returnMessage("success").build();
@@ -64,4 +74,6 @@ public class UserService {
 		// Entity To Dto
 		return CommonResDto.builder().returnCode(200).returnMessage("success").build();
 	}
+
+
 }

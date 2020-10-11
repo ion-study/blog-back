@@ -1,8 +1,12 @@
 package com.ion.blogapi.user;
 import com.ion.blogapi.common.dto.CommonResDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /* User Controller */
@@ -26,19 +30,26 @@ public class UserController {
 	}
 
 	@PostMapping("/users")
-	public CommonResDto create(@RequestBody User resource) {
-		System.out.println("user : ");
-		System.out.println(resource);
-		System.out.println(resource.isAdmin());
+	public CommonResDto create(@RequestBody @Valid UserReqCreateDto userReqDto, BindingResult result) {
+		//validation 에러 발생 시
+		if (result.hasErrors()) {
+			List<ObjectError> list = result.getAllErrors();
+			for (ObjectError error : list) {
+				FieldError f = (FieldError) error;
+				System.out.println(("error:" + f.getField() + ", " + f.getDefaultMessage()));
+			}
+			return CommonResDto.setReqInValid();
+		}
+		System.out.println("userReqDto : ");
+		System.out.println(userReqDto);
 
-		return userService.setUser(resource);
+		return userService.join(userReqDto);
 	}
 
 	@PatchMapping("/users")
 	public CommonResDto update(@RequestBody User resource) {
 		System.out.println("[update] user : ");
 		System.out.println(resource);
-		System.out.println(resource.isAdmin());
 
 		return userService.updateUser(resource);
 	}

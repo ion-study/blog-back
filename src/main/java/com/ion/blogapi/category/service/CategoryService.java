@@ -31,7 +31,7 @@ public class CategoryService {
 		CategoryResDto res = new CategoryResDto();
 
 		if(category == null) {
-			res.setResLog(CommonResDto.setNotFound());
+			res.setResLog(CommonResDto.setDuplCategory());
 		}else {
 			res = CategoryResDto.of(category);
 		}

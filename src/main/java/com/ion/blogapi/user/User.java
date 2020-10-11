@@ -1,13 +1,12 @@
 package com.ion.blogapi.user;
 
 import com.ion.blogapi.common.domain.CommonField;
+import com.ion.blogapi.config.ModelMapperUtils;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 /* User Domain */
 @Entity
@@ -18,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @SequenceGenerator(
 		name = "USER_SEQ_GENERATOR",
-		sequenceName = "USER_SEQ", // 매핑할 데이터베이스 시퀀스 이름
+		sequenceName = "USER_SEQUENCE", // 매핑할 데이터베이스 시퀀스 이름
 		allocationSize = 1)
 public class User extends CommonField {
 
@@ -27,18 +26,29 @@ public class User extends CommonField {
 					generator = "USER_SEQ_GENERATOR")
 	private Long id;
 
-	@NotEmpty
 	private String email;
 
-	@NotEmpty
 	private String name;
 
-	@NotEmpty
 	private String password;
 
-	@NotNull
 	@Convert(converter = RoleAttributeConverter.class)
 	private String role;
+
+	public static User of(UserReqCreateDto userReqDto) {
+		// 이름이 같은 필드명끼리는 ModelMapper를 통해 매핑
+		User user = ModelMapperUtils.getModelMapper().map(userReqDto, User.class);
+
+		// 이름이 다른 필드는 직접 set을 통해 매핑
+		// ...
+
+		//test
+		System.out.println("userReqDto to User");
+		System.out.println(userReqDto);
+		System.out.println(user);
+
+		return user;
+	}
 
 	public boolean isAdmin() {
 		return this.getRole().equals(Role.ADMIN.getKey());
