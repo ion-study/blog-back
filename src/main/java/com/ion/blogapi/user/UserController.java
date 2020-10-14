@@ -31,15 +31,9 @@ public class UserController {
 
 	@PostMapping("/users")
 	public CommonResDto create(@RequestBody @Valid UserReqCreateDto userReqDto, BindingResult result) {
-		//validation 에러 발생 시
-		if (result.hasErrors()) {
-			List<ObjectError> list = result.getAllErrors();
-			for (ObjectError error : list) {
-				FieldError f = (FieldError) error;
-				System.out.println(("error:" + f.getField() + ", " + f.getDefaultMessage()));
-			}
-			return CommonResDto.setReqInValid();
-		}
+		// 에러 처리
+		validException(result);
+
 		System.out.println("userReqDto : ");
 		System.out.println(userReqDto);
 
@@ -47,11 +41,15 @@ public class UserController {
 	}
 
 	@PatchMapping("/users")
-	public CommonResDto update(@RequestBody User resource) {
-		System.out.println("[update] user : ");
-		System.out.println(resource);
+	public CommonResDto update(@RequestBody @Valid UserReqUpdateDto userReqDto, BindingResult result) {
+		// 에러 처리
+		if(validException(result))
+			return CommonResDto.setReqInValid();
 
-		return userService.updateUser(resource);
+		System.out.println("[update] userReqUpdateDto : ");
+		System.out.println(userReqDto);
+
+		return userService.updateUser(userReqDto);
 	}
 
 
@@ -61,5 +59,21 @@ public class UserController {
 	public CommonResDto delete(@RequestParam("email") String email) {
 		return userService.deleteUser(email);
 	}
+
+	// Valid 에러 공통 처리
+	public boolean validException(BindingResult result) {
+		//validation 에러 발생 시
+		if (result.hasErrors()) {
+			List<ObjectError> list = result.getAllErrors();
+			for (ObjectError error : list) {
+				FieldError f = (FieldError) error;
+				System.out.println(("error:" + f.getField() + ", " + f.getDefaultMessage()));
+			}
+			return true;
+		}
+		return false;
+	}
+
+
 
 }

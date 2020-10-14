@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.parser.Entity;
 
 @Service
 public class UserService {
@@ -52,15 +51,18 @@ public class UserService {
 	}
 
 	@Transactional
-	public CommonResDto updateUser(User user) {
+	public CommonResDto updateUser(UserReqUpdateDto userReqDto) {
 		// 기존 유저 검사
-		if(user.getId() == null) return CommonResDto.setNotFoundUser();
+		if(userReqDto.getId() == null) return CommonResDto.setNotFoundUser();
 
-		User oldUser = userRepository.findById(user.getId()).orElse(null);
+		User oldUser = userRepository.findById(userReqDto.getId()).orElse(null);
 		if(oldUser == null) return CommonResDto.setNotFoundUser();
 
+		// DTO to Entity
+		User user = User.of(userReqDto);
+
 		// 기존 유저 + 수정 항목 업데이트
-		userRepository.save(user);
+		oldUser.updateInfo(user);
 
 		// Entity To Dto
 		return CommonResDto.builder().returnCode(200).returnMessage("success").build();
